@@ -16,7 +16,6 @@ async function procesar() {
             body: JSON.stringify({ texto: texto })
         });
 
-        // Verificamos si el servidor respondió bien
         if (!resp.ok) {
             throw new Error("Error en el servidor");
         }
@@ -30,9 +29,10 @@ async function procesar() {
             div.style.backgroundColor = emo.color;
             div.innerHTML = `<strong>${emo.nombre}</strong> <span>${emo.fuerza}</span>`;
             contenedor.appendChild(div);
-            const fuerzaNumero = parseInt(emo.fuerza); // Quita el % y lo hace número
-div.style.transform = `scale(${0.8 + (fuerzaNumero / 100)})`; // Las más grandes brillan más
-div.style.opacity = fuerzaNumero < 20 ? "0.7" : "1"; // Las pequeñas se ven más tenues
+            
+            const fuerzaNumero = parseInt(emo.fuerza);
+            div.style.transform = `scale(${0.8 + (fuerzaNumero / 100)})`;
+            div.style.opacity = fuerzaNumero < 20 ? "0.7" : "1";
         });
 
         if (emociones.length > 0) {

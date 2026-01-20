@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import pipeline
 from fastapi.staticfiles import StaticFiles
@@ -14,14 +14,17 @@ clasificador_ia = pipeline("zero-shot-classification", model="facebook/bart-larg
 #Lista de emociones y diccionario que le asigna un color a cada emoción
 LISTA_EMOCIONES = [
     "alegría", "tristeza", "ira", "miedo", "amor", "sorpresa", 
-    "nostalgia", "misterio", "esperanza", "confusión", "euforia", "calma"
+    "nostalgia", "misterio", "esperanza", "confusión", "euforia", "calma",
+    "inseguridad", "decepcion", "soledad"
+    
 ]
 
 COLORES = {
     "alegría": "#FFD700", "tristeza": "#4682B4", "ira": "#FF4500",
     "miedo": "#483D8B", "amor": "#FF69B4", "sorpresa": "#00CED1",
     "nostalgia": "#D8BFD8", "misterio": "#2F4F4F", "esperanza": "#90EE90",
-    "confusión": "#BC8F8F", "euforia": "#FF00FF", "calma": "#E0FFFF"
+    "confusión": "#BC8F8F", "euforia": "#FF00FF", "calma": "#E0FFFF",
+    "inseguridad": "#939CA8", "decepcion": "#6260C0", "soledad":"#AA5C7D"
 }
 
 class Entrada(BaseModel):
@@ -44,13 +47,13 @@ def analizar(entrada: Entrada):
         score = resultado['scores'][i]
         label = resultado['labels'][i]
         
-        if score > 0.05:
+        if score > 0.01:
             emociones_detectadas.append({
                 "nombre": label,
                 "color": COLORES.get(label, "#D3D3D3"),
                 "fuerza": f'{int(score * 100)}%'
             })
 
-    return emociones_detectadas[:6]
+    return emociones_detectadas
 
 app.mount("/static", StaticFiles(directory="static"), name="static")

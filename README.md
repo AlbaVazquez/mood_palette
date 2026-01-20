@@ -5,11 +5,11 @@ La dinámica de la aplicación es extraer las emociones detectadas en un texto i
 **_NO FUNCIONA CON LIVE SERVER_**
 
 **Levantar la app:**
-Para crear el entorno virtual: **python3 -m venv env**
+Para crear el entorno virtual (**solo si no está creado previamente**): Linux(**python3 -m venv env**), Windows(python -m venv env)
 
-Para entrar al entorno virtual: **source env/bin/activate**
+Para entrar al entorno virtual: Linux(**source env/bin/activate**), Windows(.\env\Scripts\Activate.ps1)
 
-Para descargar los requisitos (solo en caso de no contar con ellos): **pip install -r requirements.txt**
+Para descargar los requisitos (**solo en caso de no contar con ellos**): **pip install -r requirements.txt**
 
 Utilizar el siguiente comando en la terminal para levantar la app: **uvicorn main:app --reload**
 
